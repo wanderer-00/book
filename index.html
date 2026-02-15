@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Книга с обложкой ребёнка | Неоморфный лендинг</title>
+    <!-- Подключение шрифта Inter для современного вида -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (бесплатный) для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #e0e5ec;  /* основной фон под неоморфизм */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            color: #2d4059;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* НЕОМОРФНЫЙ БЛОК (общий стиль для карточек) */
+        .neo-card {
+            background: #e0e5ec;
+            border-radius: 50px;
+            box-shadow: 
+                20px 20px 40px rgba(0, 0, 0, 0.08),
+                -20px -20px 40px rgba(255, 255, 255, 0.9),
+                inset 0px 0px 0px rgba(0,0,0,0.02),
+                inset 0px 0px 0px rgba(255,255,255,0.7);
+            transition: all 0.3s ease;
+            padding: 2.8rem 2.5rem;
+        }
+
+        /* мягкий ховер для интерактива (чуть меняем тени) */
+        .neo-card:hover {
+            box-shadow: 
+                15px 15px 30px rgba(0, 0, 0, 0.1),
+                -15px -15px 30px rgba(255, 255, 255, 1),
+                inset 0px 0px 0px rgba(0,0,0,0.02),
+                inset 0px 0px 0px rgba(255,255,255,0.7);
+        }
+
+        /* шапка лендинга */
+        .hero-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .hero-content {
+            flex: 1 1 350px;
+        }
+
+        .hero-image {
+            flex: 1 1 300px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* изображение в неоморфном стиле (книга-заглушка) */
+        .book-cover-neo {
+            max-width: 300px;
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: #e0e5ec;
+            border-radius: 40px;
+            box-shadow: 
+                20px 20px 40px rgba(0, 0, 0, 0.1),
+                -20px -20px 40px rgba(255, 255, 255, 1),
+                inset 0px 0px 0px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            color: #4a5b6e;
+        }
+
+        .book-cover-neo i {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            color: #3c5a7d;
+            opacity: 0.8;
+            filter: drop-shadow(5px 5px 8px rgba(0,0,0,0.1)) drop-shadow(-3px -3px 5px white);
+        }
+
+        .book-cover-neo p {
+            font-weight: 500;
+            font-size: 1.2rem;
+            background: #e0e5ec;
+            padding: 0.5rem 1rem;
+            border-radius: 60px;
+            box-shadow: inset 3px 3px 7px #b0b7c4, inset -3px -3px 7px white;
+            color: #2d4059;
+        }
+
+        .badge {
+            font-size: 0.9rem;
+            font-weight: 400;
+            margin-top: 1rem;
+            padding: 0.3rem 1rem;
+            background: #e0e5ec;
+            border-radius: 30px;
+            box-shadow: inset 2px 2px 5px #b5bcc8, inset -2px -2px 5px white;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: #1e2f40;
+            text-shadow: 2px 2px 5px rgba(255,255,255,0.8), -2px -2px 5px rgba(0,0,0,0.05);
+        }
+
+        .highlight {
+            background: #e0e5ec;
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            box-shadow: inset 2px 2px 6px #b5bcc8, inset -3px -3px 6px white;
+            font-weight: 600;
+        }
+
+        .desc {
+            font-size: 1.2rem;
+            margin: 1.8rem 0 2.5rem;
+            opacity: 0.9;
+            font-weight: 300;
+            background: #e0e5ec;
+            padding: 1rem 1.5rem;
+            border-radius: 60px;
+            box-shadow: inset 5px 5px 12px #b0b7c4, inset -5px -5px 12px white;
+        }
+
+        /* ФОРМА (неоморфные элементы) */
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        .neo-form {
+            background: #e0e5ec;
+            border-radius: 60px;
+            box-shadow: 
+                15px 15px 30px rgba(0, 0, 0, 0.08),
+                -15px -15px 30px rgba(255, 255, 255, 0.9),
+                inset 0px 0px 0px rgba(0,0,0,0.02);
+            padding: 2.8rem 2.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.7rem;
+            padding-left: 1.2rem;
+            font-size: 1rem;
+            color: #3e4d5f;
+        }
+
+        .neo-input {
+            width: 100%;
+            padding: 1.2rem 1.8rem;
+            border: none;
+            background: #e0e5ec;
+            border-radius: 70px;
+            font-size: 1.1rem;
+            font-family: 'Inter', sans-serif;
+            color: #1d2c3b;
+            box-shadow: inset 8px 8px 16px #b5bcc8, inset -8px -8px 16px white;
+            transition: box-shadow 0.2s ease;
+            outline: none;
+        }
+
+        .neo-input:focus {
+            box-shadow: inset 10px 10px 18px #aab1bd, inset -10px -10px 18px white;
+        }
+
+        .neo-input::placeholder {
+            color: #8f9fb1;
+            font-weight: 300;
+            font-size: 1rem;
+        }
+
+        .file-hint {
+            margin-top: 0.6rem;
+            font-size: 0.9rem;
+            padding-left: 1.5rem;
+            opacity: 0.75;
+        }
+
+        /* кнопка в стиле неоморфизм */
+        .neo-button {
+            background: #e0e5ec;
+            border: none;
+            border-radius: 80px;
+            padding: 1.3rem 2rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e2f40;
+            width: 100%;
+            cursor: pointer;
+            box-shadow: 
+                12px 12px 24px rgba(0, 0, 0, 0.1),
+                -12px -12px 24px rgba(255, 255, 255, 1),
+                inset 0px 0px 0px rgba(255,255,255,0.5);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .neo-button i {
+            font-size: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .neo-button:hover {
+            box-shadow: 
+                8px 8px 16px rgba(0, 0, 0, 0.12),
+                -8px -8px 16px rgba(255, 255, 255, 1),
+                inset 0px 0px 0px rgba(255,255,255,0.5);
+            transform: scale(0.98);
+        }
+
+        .neo-button:active {
+            box-shadow: 
+                inset 8px 8px 16px #b5bcc8,
+                inset -8px -8px 16px white,
+                0px 0px 0px rgba(0,0,0,0.1);
+        }
+
+        /* блок перехода в Telegram (спецкнопка) */
+        .tg-section {
+            text-align: center;
+            margin: 3.5rem 0 2rem;
+        }
+
+        .tg-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            background: #e0e5ec;
+            border-radius: 90px;
+            padding: 1.5rem 3.5rem;
+            text-decoration: none;
+            color: #1e2f40;
+            font-weight: 600;
+            font-size: 1.5rem;
+            box-shadow: 
+                15px 15px 30px rgba(0, 0, 0, 0.1),
+                -15px -15px 30px rgba(255, 255, 255, 1),
+                inset 0px 0px 0px rgba(255,255,255,0.6);
+            transition: 0.15s;
+            width: auto;
+            border: none;
+            cursor: pointer;
+        }
+
+        .tg-button i {
+            font-size: 2.2rem;
+            color: #27A1E8; /* легкий оттенок telegram */
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .tg-button:hover {
+            box-shadow: 
+                8px 8px 16px rgba(0, 0, 0, 0.15),
+                -8px -8px 16px rgba(255, 255, 255, 1),
+                inset 0px 0px 0px rgba(255,255,255,0.6);
+        }
+
+        .tg-button:active {
+            box-shadow: inset 8px 8px 16px #b5bcc8, inset -8px -8px 16px white;
+        }
+
+        /* преимущества / особенности */
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 5rem 0 2rem;
+        }
+
+        .feature-item {
+            flex: 1 1 180px;
+            background: #e0e5ec;
+            border-radius: 70px;
+            padding: 2rem 1rem;
+            box-shadow: 
+                12px 12px 24px rgba(0, 0, 0, 0.08),
+                -12px -12px 24px rgba(255, 255, 255, 0.9);
+            text-align: center;
+        }
+
+        .feature-item i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #3b5d7a;
+        }
+
+        .feature-item span {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        /* footer легкий */
+        .footer-note {
+            text-align: center;
+            margin-top: 4rem;
+            opacity: 0.6;
+            font-size: 0.95rem;
+            font-weight: 300;
+            padding: 0.8rem;
+            border-radius: 100px;
+            background: #e0e5ec;
+            box-shadow: inset 5px 5px 10px #b5bcc8, inset -5px -5px 10px white;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* адаптивность */
+        @media (max-width: 600px) {
+            .neo-card { padding: 1.8rem 1.2rem; }
+            .neo-form { padding: 1.8rem 1.2rem; }
+            h1 { font-size: 2.2rem; }
+            .tg-button { font-size: 1.2rem; padding: 1.2rem 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Герой-блок с неоморфной карточкой -->
+        <div class="hero-section neo-card">
+            <div class="hero-content">
+                <h1>Книга, где главный герой — <span class="highlight">ваш ребёнок</span></h1>
+                <p class="desc">Уникальная персонализированная книга с обложкой на фото вашего малыша. Неоморфная нежность и тёплые воспоминания.</p>
+                <!-- маленький набор "фишек" -->
+                <div style="display: flex; gap: 1.2rem; flex-wrap: wrap;">
+                    <span style="background: #e0e5ec; border-radius: 40px; padding: 0.5rem 1.5rem; box-shadow: inset 3px 3px 8px #b5bcc8, inset -3px -3px 8px white;"><i class="fa-regular fa-star" style="margin-right: 8px;"></i>24 страницы</span>
+                    <span style="background: #e0e5ec; border-radius: 40px; padding: 0.5rem 1.5rem; box-shadow: inset 3px 3px 8px #b5bcc8, inset -3px -3px 8px white;"><i class="fa-regular fa-heart" style="margin-right: 8px;"></i>Твёрдая обложка</span>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="book-cover-neo">
+                    <i class="fa-solid fa-camera-retro"></i>
+                    <p>Обложка с фото</p>
+                    <div class="badge">ваш снимок</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Форма захвата (неоморфная) -->
+        <div class="form-container">
+            <div class="neo-form">
+                <h2 style="font-weight: 600; margin-bottom: 2.2rem; padding-left: 0.5rem;">Оставьте заявку на книгу</h2>
+                <form id="captureForm" action="#" method="post">
+                    <div class="input-group">
+                        <label for="name"><i class="fa-regular fa-user" style="margin-right: 10px;"></i>Имя родителя</label>
+                        <input type="text" id="name" name="name" class="neo-input" placeholder="Анна" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="phone"><i class="fa-regular fa-mobile" style="margin-right: 10px;"></i>Телефон / WhatsApp</label>
+                        <input type="tel" id="phone" name="phone" class="neo-input" placeholder="+7 (999) 123-45-67" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="email"><i class="fa-regular fa-envelope" style="margin-right: 10px;"></i>E-mail</label>
+                        <input type="email" id="email" name="email" class="neo-input" placeholder="example@mail.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="childName"><i class="fa-regular fa-face-smile" style="margin-right: 10px;"></i>Имя ребёнка (для книги)</label>
+                        <input type="text" id="childName" name="childName" class="neo-input" placeholder="Миша" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="photo"><i class="fa-regular fa-image" style="margin-right: 10px;"></i>Загрузите фото для обложки</label>
+                        <input type="file" id="photo" name="photo" class="neo-input" accept="image/*" style="padding-top: 1rem; padding-bottom: 1rem;" required>
+                        <div class="file-hint">* форматы JPG, PNG, до 10 МБ</div>
+                    </div>
+
+                    <!-- Неоморфная кнопка отправки (просто демонстрация, переход в tg далее) -->
+                    <button type="submit" class="neo-button" id="fakeSubmit">
+                        <i class="fa-regular fa-paper-plane"></i> Отправить заявку
+                    </button>
+                </form>
+                <p style="margin-top: 2rem; font-size: 0.9rem; text-align: center; opacity: 0.6;">Нажимая кнопку, вы соглашаетесь на обработку данных</p>
+            </div>
+        </div>
+
+        <!-- Блок перехода в Telegram бота (основной призыв) -->
+        <div class="tg-section">
+            <a href="https://t.me/YourBookBot?start=landing" target="_blank" class="tg-button" id="tgBotLink">
+                <i class="fa-brands fa-telegram"></i> Перейти в Telegram бота
+                <i class="fa-regular fa-arrow-right" style="font-size: 1.6rem;"></i>
+            </a>
+            <p style="margin-top: 1.5rem; font-weight: 300; background: #e0e5ec; padding: 0.6rem 2rem; border-radius: 60px; display: inline-block; box-shadow: inset 2px 2px 5px #b0b7c4, inset -2px -2px 5px white;">
+                <i class="fa-regular fa-circle-check" style="margin-right: 10px; color: #3b7a5e;"></i> В боте вы сможете выбрать макет, загрузить фото и оформить заказ
+            </p>
+        </div>
+
+        <!-- Дополнительные "неоморфные" преимущества -->
+        <div class="features">
+            <div class="feature-item">
+                <i class="fa-regular fa-gem"></i>
+                <span>Плотная бумага</span>
+            </div>
+            <div class="feature-item">
+                <i class="fa-regular fa-images"></i>
+                <span>Ваше фото на обложке</span>
+            </div>
+            <div class="feature-item">
+                <i class="fa-regular fa-clock"></i>
+                <span>Срок 5–7 дней</span>
+            </div>
+            <div class="feature-item">
+                <i class="fa-regular fa-truck"></i>
+                <span>Доставка по РФ</span>
+            </div>
+        </div>
+
+        <!-- маленький footer -->
+        <div class="footer-note">
+            <i class="fa-regular fa-copyright" style="margin-right: 6px;"></i> неоморфная сказка для вашего ребёнка
+        </div>
+    </div>
+
+    <!-- Небольшой скрипт: перехват отправки формы и переход в Telegram -->
+    <script>
+        (function() {
+            const form = document.getElementById('captureForm');
+            const tgButton = document.getElementById('tgBotLink');
+
+            // При отправке формы показываем сообщение и затем переходим в Telegram (имитация)
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();  // не отправляем реально форму, т.к. это демо лендинг
+
+                // Небольшая неоморфная анимация для кнопки (была отправка)
+                const submitBtn = document.getElementById('fakeSubmit');
+                submitBtn.style.transform = 'scale(0.95)';
+                setTimeout(() => { submitBtn.style.transform = 'scale(1)'; }, 150);
+
+                // Выводим оповещение, что данные приняты (в стиле неоморфизм - через alert, но можно симпатичнее)
+                alert('Спасибо! Заявка отправлена (демо). Сейчас вы будете перенаправлены в Telegram бота.');
+
+                // Перенаправление в Telegram (ссылка актуальна для примера)
+                window.open('https://t.me/YourBookBot?start=landing', '_blank');
+                // Можно также сразу переходить, но оставим как есть, чтобы юзер видел обе кнопки.
+            });
+
+            // Можно добавить дополнительный обработчик на главную tg-кнопку, но там уже прямая ссылка.
+            // Для красоты: при клике на tg-кнопку добавить микроэффект
+            tgButton.addEventListener('click', function(e) {
+                // Не блокируем переход, просто tiny эффект
+                tgButton.style.transform = 'scale(0.96)';
+                setTimeout(() => { tgButton.style.transform = 'scale(1)'; }, 100);
+            });
+
+            // Небольшая имитация работы input[file] (дизайн не меняем, и так всё в одном стиле)
+        })();
+    </script>
+    <!-- Примечание: ссылка на Telegram бота демонстрационная (YourBookBot). При необходимости замените на реального бота. -->
+</body>
+</html>
